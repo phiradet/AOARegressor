@@ -229,12 +229,14 @@ class Extractor:
                 normTable = normCol
             else:
                 normTable = np.concatenate((normTable, normCol), axis=1)
-        print normTable.shape
-        print normTable
-        print table
-        print SDs
-        print AVGs
-        print  "==============="
+        #=======================================================================
+        # print normTable.shape
+        # print normTable
+        # print table
+        # print SDs
+        # print AVGs
+        # print  "==============="
+        #=======================================================================
         return normTable
             
     def GetStandardScoreParam(self, table):
@@ -255,12 +257,15 @@ class Regressor:
     def __init__(self):
         pass
     
-    def Learn(self, words,AOAs):
+    def Learn(self, words,AOAs, verbose=True):
         ext = Extractor()
         trainFeatureTable = ext.CreateFeatureTable(words, isTrain=True)
         self.clf = linear_model.Ridge()
         self.clf.fit (trainFeatureTable, AOAs)
-        print self.clf.coef_
+        if verbose:
+            print "coef"
+            for coef in self.clf.coef_:
+                print coef
     
     def Predict(self, words):
         import pickle
